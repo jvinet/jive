@@ -197,7 +197,7 @@ Jive.history = {
 			var m = /^([0-9]+)|/.exec(anchor);
 			if(m[1]) Jive.history.go(m[1]);
 		}
-	},
+	}
 };
 setInterval(Jive.history.watch, 100);
 
