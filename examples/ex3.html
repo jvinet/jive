@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Jive</title>
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../jive.min.js"></script>
+
+	<script type="text/javascript">
+		MainController = function() {
+			this.go = function(req, res) {
+				if(req.title == 'custom') {
+					res.title = req.cust_title;
+				} else {
+					res.title = req.title;
+				}
+				res.name = req.name;
+				res.renderURL('tpl/hello2.tpl');
+			}
+		}
+
+		// set the default controller to use if none specified
+		Jive.controller = 'Main';
+	</script>
+</head>
+
+<body>
+	<form run="go">
+		<p>Classify yourself, human.</p>
+		<input type="radio" name="title" value="mr.">Male<br />
+		<input type="radio" name="title" value="mrs.">Female<br />
+		<input type="radio" name="title" value="custom">
+		... or something else altogether? <input type="text" name="cust_title" /><br />
+		Annnnd, your name?
+		<input type="text" name="name" /><br />
+		<input type="submit" value="Let's do this" />
+	</form>
+</body>
+
+</html>
+

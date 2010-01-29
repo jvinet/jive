@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>Jive</title>
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../jive.min.js"></script>
+
+	<!-- models -->
+	<script type="text/javascript">
+		PersonModel = function(){
+		}
+		PersonModel.prototype = new Jive.Model();
+	</script>
+
+	<!-- controllers -->
+	<script type="text/javascript">
+		MainController = function() {
+			this.index = function(req, res) {
+			}
+		}
+		MainController.prototype = new Jive.Controller();
+
+		PersonController = function(){
+			self.m = new PersonModel();
+
+			this.save = function(req, res, $trig) {
+				if(!self.m.validate($trig)) return;
+				alert("You passed");
+			}
+		}
+		PersonController.prototype = new Jive.Controller();
+
+		// set the (initial) default controller to use if none specified
+		Jive.controller = 'Main';
+		Jive.DEBUG = true;
+		Jive.run('index');
+	</script>
+
+	<style type="text/css">
+		.field-error { border: 1px solid red; }
+	</style>
+</head>
+
+<body>
+	<form run="Person/save">
+		Name: <input type="text" name="name" valid="ne" /><br />
+		Address: <input type="text" name="address" valid="ne" /><br />
+		Email: <input type="text" name="email" valid="email" /><br />
+		<br />
+		<input type="submit" value="Let's do this" />
+	</form>
+</body>
+
+</html>
+

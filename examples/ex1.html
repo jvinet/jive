@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>Jive</title>
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../jive.min.js"></script>
+
+	<!-- app -->
+	<script type="text/javascript">
+		HelloWorldController = function() {
+			this.index = function(req, res) {
+				res.name = 'World';
+				res.renderText("Hello, <%=name%>!");
+			}
+		}
+
+		$(function(){ Jive.run('HelloWorld/index') });
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>
+

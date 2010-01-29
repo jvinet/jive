@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Jive</title>
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../jive.min.js"></script>
+
+	<script type="text/javascript">
+		MainController = function() {
+			this.index = function(req, res) {
+				// copy the 'name' parameter from the request object to the result object
+				res.name = req.name;
+				// load the template from the URL fragment below and render it
+				res.renderURL('tpl/hello.tpl');
+			}
+		}
+
+		// set the default controller to use if none specified
+		Jive.controller = 'Main';
+	</script>
+</head>
+
+<body>
+	<a href="#" run="index?name=World">Click me, I dare you.</a>
+</body>
+
+</html>
+
