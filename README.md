@@ -28,25 +28,30 @@ can run entirely within an HTML file, it doesn't get in the way of your
 boring server-side framework.
 
 
-# How do you route actions to controllers?
+# Examples #
 
-A very poignant question. Good for you.
-
-
-
-- Yes, your HTML won't validate.  SFW.
-	- html parsers are already designed to be forgiving
-	- very convenient, useful method if you ignore the non-standardness
+To view examples, look in the surprisingly-named "examples" directory.
 
 - Example 1: Hello World
+	- Very simple while still illustrating the user of a Jive controller.
+	- Renders content to the browser using basic template variable substitution.
 - Example 2
+	- Shows use of the request object to retrieve action arguments.
+	- Renders a template from an external URL.
 - Example 3
+	- Shows how to submit a form through Jive and process the data.
 - Example 4
-	- after running ex3, you saw that clicking the back button didn't work when
+	- After running ex3, you saw that clicking the back button didn't work when
 		you wanted to get back to the form.
-	- use history breadcrumbs (@ prefix)
+	- Use history breadcrumbs (@ prefix) in front of controller/action calls when
+		you want to be able to use the Back button to return to it later.
 - Example 5
-	- base controller/model classes, validation
+	- Shows use of the base controller/model classes provided by Jive
+	- Uses the base model's data validation routine.
+	- Shows how multiple controllers coexist.
+
+
+# Doc TODO #
 
 - Waits
 
