@@ -28,12 +28,12 @@ can run entirely within an HTML file, it doesn't get in the way of your
 boring server-side framework.
 
 
-# Examples #
+# Contrived Examples #
 
 To view examples, look in the surprisingly-named "examples" directory.
 
 - Example 1: Hello World
-	- Very simple while still illustrating the user of a Jive controller.
+	- Very simple while still illustrating the use of a Jive controller.
 	- Renders content to the browser using basic template variable substitution.
 - Example 2
 	- Shows use of the request object to retrieve action arguments.
@@ -50,6 +50,28 @@ To view examples, look in the surprisingly-named "examples" directory.
 	- Uses the base model's data validation routine.
 	- Shows how multiple controllers coexist.
 
+
+# Real Life Examples #
+
+These programs are fully-functional, but not necessarily "production-grade."
+The user interfaces are probably a bit rough, but the apps illustrate the
+flexibility of Jive.
+
+- [Javascript Reference](http://www.zeroflux.org/jive/jsref/index.html)
+	- A basic programmer's reference tool for the Javascript core language.
+	- Uses a single XML file as the data source.
+	- Note: The reference is useful, albeit incomplete.  You won't find
+		XMLHttpRequest in there, for example.
+- [Twilight](http://www.zeroflux.org/jive/twilight/index.html)
+	- A very simple Twitter client.
+	- Lets you categorize all the people you're following, placing them into
+		specific lists or "panels".  This lets you manage the flow of information
+		more easily, so infrequent twitterers' tweets are not drowned out by the
+		more proflific ones.
+	- Currently uses DOM storage, so there is no backend at all.  This means
+		your settings may be lost if your DOM storage goes bye-bye.
+- Coming Soon: Fiasco
+	- A simple bug tracker with additional collab features.
 
 # Doc TODO #
 
