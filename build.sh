@@ -14,7 +14,8 @@ cat ${files[*]} >>../jive.full.js
 
 cd ..
 [ -x "jsmin.py" ] && min="./jsmin.py"
-[ -r "compiler.jar" ] && min="java -jar compiler.jar"
+# doesn't work yet
+#[ -r "compiler.jar" ] && min="java -jar compiler.jar"
 
 cat >jive.min.js <<EOT
 /**

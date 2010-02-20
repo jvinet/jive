@@ -14,7 +14,6 @@ Jive.UI = {};
  * Requires the jQuery Gritter plugin
  ************************************************************************/
 Jive.UI.flash = function(message) {
-	Jive.load_css('css/gritter.css');
 	function a() {
 		$.gritter.add({
 			title: ' ',
@@ -25,6 +24,7 @@ Jive.UI.flash = function(message) {
 		});
 	}
 	if(typeof $.gritter != 'object') {
+		Jive.load_css('css/gritter.css');
 		$.getScript('js/jquery.gritter.js', a);
 	} else {
 		a();

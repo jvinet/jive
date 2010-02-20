@@ -90,7 +90,7 @@ Jive.hookAfter = function(filter, cb, permanent, thisvar) {
 	Jive.hooks.after.push({filter:filter, cb:cb, permanent:permanent || true, thisvar:thisvar || false});
 };
 Jive.runHooks = function(controller, action, hooks) {
-	for(var i in hooks) {
+	for(var i = 0; i < hooks.length; i++) {
 		var tuple = controller+'/'+action;
 		// accept a regex or a string
 		// NB: typeof isn't very reliable for regexps
@@ -219,6 +219,9 @@ Jive.exec = function(controller, action, req, $trig) {
 	if(Jive.ctrl[controller]) {
 		var c = Jive.ctrl[controller];
 	} else {
+		// TODO: I think this will obviate the need for the eval()
+		//var cn = controller + "Controller";
+		//var c  = cn.call(this);
 		eval("var c = new "+controller+"Controller();");
 		Jive.ctrl[controller] = c;
 	}
