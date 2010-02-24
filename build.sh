@@ -2,10 +2,10 @@
 
 files=(jive.js waits.js hooks.js history.js store.js template.js result.js \
        base.js ui.js helpers.js util.js \
-       json2.js jquery.livequery.js)
+       lib/json2.js lib/sha1.js lib/jquery.livequery.js)
 
 
-cd jive
+cd src
 cat >../jive.full.js <<EOT
 /**
  * Jive - A Javascript Framework
