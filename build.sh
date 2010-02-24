@@ -1,7 +1,9 @@
 #!/bin/bash
 
-files=(jive.js jive.base.js jive.ui.js ejs/ejs.js ejs/view.js \
-       json2.js sha1.js jquery.livequery.js)
+files=(jive.js waits.js hooks.js history.js store.js template.js result.js \
+       base.js ui.js helpers.js util.js \
+       json2.js jquery.livequery.js)
+
 
 cd jive
 cat >../jive.full.js <<EOT
