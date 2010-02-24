@@ -6,7 +6,7 @@
  * have a very thin M layer that basically talks to APIs to push/pull
  * data.
  *
- * @version 0.3
+ * @version 0.4
  * @author Judd Vinet <jvinet@zeroflux.org>
  * @copyright 2009 Judd Vinet <jvinet@zeroflux.org>
  */
@@ -25,7 +25,7 @@
 	Jive.webroot = '';         // SETME: top-level directory of your application
 	Jive.controller = '';      // SETME: default/current controller to use if none specified
 
-	Jive.version = '0.3';
+	Jive.version = '0.4';
 	Jive.ctrl = {};           // a map of all active controller objects
 
 	Jive.DEBUG = false;
