@@ -24,4 +24,9 @@
 		if(d) ck += ";expires=" + d.toGMTString();
 		document.cookie = ck;
 	}
+
+	Function.prototype.mixin = function(p) {
+		jQuery.extend(this.prototype, p.prototype);
+		return this;
+	}
 })();
