@@ -83,6 +83,16 @@ View the source code of these sites to see how Jive can be used.
 	- A simple bug tracker with additional collab features.
 
 
+# See Also #
+
+Here are some Javascript frameworks that are much more featureful and mature.
+
+- http://www.javascriptmvc.com
+- http://code.google.com/p/trimpath/wiki/TrimJunction
+- http://www.sproutcore.com
+- http://jamal-mvc.com
+
+
 # Doc TODO #
 
 - Waits
