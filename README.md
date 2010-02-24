@@ -7,25 +7,32 @@ other MVC frameworks, it employs the use of models, controllers, and views
 Jive uses jQuery to make DOM work less painful.  If you don't know jQuery,
 you should.  In fact, go there now and play with it.  It's fun.
 
+Jive is currently pretty alpha stuff.  It's also developed by someone who
+does not claim expert status in Javascript, so be gentle on the pedantic
+stuff.  Suggestions welcome, though.
+
 
 # Why Another Framework? #
 
 Jive is special because it exists wholly in Javascript.  Most web
 frameworks are mostly server-side.  Jive runs entirely within a single
 HTML file and still manages to provide an MVC-ish environment for the
-discerning coder.
+discerning programmer.
 
 For data storage, Jive can make use of HTML5 DOM storage.  If you need
 something more centralized/secure, you can make AJAX calls to a
 server-side backend of your choice.  Since the backend only has to
-facility data management, it can be as simple as a data model with an API
-dispatch layer.
+facilitate data management, it can be as simple as a data model with a
+thin RESTful dispatch layer.
 
 You can also integrate Jive in pretty much any other server-side framework
 out there.  Use Jive inside a view within your existing framework, and it
 can act as the governing framework for a complex web interface.  Since it
 can run entirely within an HTML file, it doesn't get in the way of your
 boring server-side framework.
+
+Jive tries to stay lightweight.  It is easy to mix in other libraries to
+add functionality.
 
 
 # Contrived Examples #
@@ -57,6 +64,8 @@ These programs are fully-functional, but not necessarily "production-grade."
 The user interfaces are probably a bit rough, but the apps illustrate the
 flexibility of Jive.
 
+View the source code of these sites to see how Jive can be used.
+
 - [Javascript Reference](http://www.zeroflux.org/jive/jsref/index.html)
 	- A basic programmer's reference tool for the Javascript core language.
 	- Uses a single XML file as the data source.
@@ -73,6 +82,7 @@ flexibility of Jive.
 - Coming Soon: Fiasco
 	- A simple bug tracker with additional collab features.
 
+
 # Doc TODO #
 
 - Waits
@@ -84,10 +94,4 @@ flexibility of Jive.
 - Hooks
 
 - Idioms
-
-- Real Life App: JS Ref
-
-- Real Life App: Fiasco
-
-- Real Life App: Twilight
 
