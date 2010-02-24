@@ -6,28 +6,33 @@
 
 	<!-- models -->
 	<script type="text/javascript">
+		// extend the parent Jive_Model class
 		PersonModel = function(){
-		}
-		PersonModel.prototype = new Jive.Model();
+			// call the parent constructor
+			Jive_Model.call(this);
+		}.mixin(Jive_Model);
 	</script>
 
 	<!-- controllers -->
 	<script type="text/javascript">
 		MainController = function() {
+			Jive_Controller.call(this);
+
 			this.index = function(req, res) {
 			}
-		}
-		MainController.prototype = new Jive.Controller();
+		}.mixin(Jive_Controller);
 
 		PersonController = function(){
+			Jive_Controller.call(this);
 			self.m = new PersonModel();
 
 			this.save = function(req, res, $trig) {
+				// $trig is a jQuery object containing the element that triggered
+				// this action
 				if(!self.m.validate($trig)) return;
 				alert("You passed");
 			}
-		}
-		PersonController.prototype = new Jive.Controller();
+		}.mixin(Jive_Controller);
 
 		// set the (initial) default controller to use if none specified
 		Jive.controller = 'Main';

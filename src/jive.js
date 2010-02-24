@@ -145,7 +145,8 @@
 	 *   We operate on the "run" attribute (not W3C-compliant) which is
 	 *   our internal action designator.
 	 ************************************************************************/
-	$(function(){
+	jQuery(function(){
+		var $ = jQuery;
 		var run = function(){ $(this).blur(); return Jive.run($(this).attr('run'), {}, $(this)) };
 		$('a[run]').live('click', function(){ return run.call(this) });
 		// for some reason, live() doesn't work on this selector but livequery() does...
