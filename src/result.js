@@ -34,7 +34,8 @@
 		}
 		// templates may schedule code to run after the template has been
 		// fully-rendered, so notify them that the template's ready
-		Jive.ready('template');
+		Jive.trigger('templateReady');
+		//Jive.ready('template');
 	};
 
 	/**
@@ -49,7 +50,7 @@
 	 *                    Default is replace, which calls html().
 	 */
 	Jive_Result.prototype.renderURL = function(url, el, mode) {
-		Jive.wait('template');
+		//Jive.wait('template');
 		this.parseURL(url, function(str){ this.render(str, el, mode) });
 	};
 
@@ -89,7 +90,7 @@
 	 *                    Default is replace, which calls html().
 	 */
 	Jive_Result.prototype.renderText = function(str, el, mode) {
-		Jive.wait('template');
+		//Jive.wait('template');
 		this.render(this.parseText(str), el, mode);
 	};
 

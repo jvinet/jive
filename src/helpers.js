@@ -9,7 +9,8 @@
 	Jive.helpers.tag = Jive.UI.tag;
 
 	Jive.helpers.ready = function(cb) {
-		Jive.waitFor('template', cb);
+		//Jive.waitFor('template', cb);
+		Jive.listen('templateReady', cb, false);
 	};
 
 })();

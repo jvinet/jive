@@ -52,9 +52,6 @@
 		if(Jive.ctrl[controller]) {
 			var c = Jive.ctrl[controller];
 		} else {
-			// TODO: I think this will obviate the need for the eval()
-			//var cn = controller + "Controller";
-			//var c  = cn.call(this);
 			eval("var c = new "+controller+"Controller();");
 			Jive.ctrl[controller] = c;
 		}
@@ -63,17 +60,36 @@
 		// not necessarily the controller/action that's actually executed
 		Jive.ctx = {controller: controller, action: action};
 
-		//Jive.waitAll(function(){
-			// fallback to the "index" action
-			if(typeof c[action] != 'function') action = 'index';
-			if(typeof c[action] != 'function') {
-				// this is our "404"
-				Jive.debug("[exec] 404! c="+controller+" a="+action);
-				return;
-			}
-			Jive.debug("[exec] c="+controller+" a="+action);
-			c[action].call(c, req, res, $trig);
-		//});
+		// fallback to the "index" action
+		if(typeof c[action] != 'function') action = 'index';
+		if(typeof c[action] != 'function') {
+			// this is our "404"
+			Jive.debug("[exec] 404! c="+controller+" a="+action);
+			return;
+		}
+		Jive.debug("[exec] c="+controller+" a="+action);
+		c[action].call(c, req, res, $trig);
+	};
+
+	/**
+	 * Execute a local.  A "local" is a controller function that
+	 * is not called directly from a web browser, but called internally
+	 * by another part of the application.
+	 */
+	Jive.local = function(controller, action, args) {
+		var args = args instanceof Array ? args : [args];
+		if(Jive.ctrl[controller]) {
+			var c = Jive.ctrl[controller];
+		} else {
+			//var c = new window[controller + "Controller"];
+			eval("var c = new "+controller+"Controller();");
+			Jive.ctrl[controller] = c;
+		}
+		if(typeof c[action] != 'function') return;
+
+		Jive.ctx = {controller: controller, action: action};
+		Jive.debug("[local] c="+controller+" a="+action);
+		c[action].apply(c, args);
 	};
 
 	/**
@@ -138,7 +154,6 @@
 		// we also don't change the href if the trigger simply used href="#"
 		return hist || href == '#' ? false : true;
 	};
-
 
 	/************************************************************************
 	 * OVERRIDE DEFAULT LINK/FORM BEHAVIOR

@@ -9,11 +9,8 @@
 (function(){
 
 	Jive.store = function() {
-		// try localStorage first, fallback to globalStorage
-		var s = null;
-		if(typeof window.globalStorage == 'object') s = window.globalStorage[window.location.host];
-		if(typeof window.localStorage == 'object') s = window.localStorage;
-		if(!s) return false;
+		if(typeof window.localStorage != 'object') return false;
+		var s = window.localStorage;
 		s[Jive.appname || 'Jive'] = s[Jive.appname || 'Jive'] || {};
 		return s;
 	};

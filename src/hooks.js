@@ -18,7 +18,8 @@
 			// NB: typeof isn't very reliable for regexps
 			//   FF:     typeof /regex/ == 'object'
 			//   Safari: typeof /regex/ == 'function'
-			if((typeof hooks[i].filter == 'string' && hooks[i].filter == tuple) || hooks[i].filter.test(tuple)) {
+			if( (typeof hooks[i].filter == 'string' && hooks[i].filter == tuple)
+				|| (typeof hooks[i].filter == 'object' && hooks[i].filter.test(tuple)) ) {
 				// callbacks can return false to halt execution of further hooks or actions
 				var res = hooks[i].cb.call(hooks[i].thisvar || window, controller, action);
 				if(!hooks[i].permanent) delete hooks[i];
