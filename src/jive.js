@@ -30,7 +30,12 @@
 
 	Jive.DEBUG = false;
 	Jive.debug = function(s) {
-		if(typeof console == 'object' && Jive.DEBUG) console.log(s);
+		if(typeof console != 'object' || !Jive.DEBUG) return;
+		if(arguments.length > 1) {
+			for(var i = 0; i < arguments.length; i++) console.log(i+': '+arguments[i]);
+		} else {
+			console.log(s);
+		}
 	};
 
 

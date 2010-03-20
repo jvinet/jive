@@ -95,13 +95,11 @@ Here are some Javascript frameworks that are much more featureful and mature.
 
 # Doc TODO #
 
-- Waits
+- Events, Hooks
 
 - Base controller and model; validation, etc
 
 - Jive.store
-
-- Hooks
 
 - Idioms
 

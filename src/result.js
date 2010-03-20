@@ -60,8 +60,14 @@
 	 * @param string URL
 	 * @param function Callback
 	 */
-	var queue = {};
+	var queue = {};  // queue of callbacks waiting on each URL
+	var cache = {};  // cache of unparsed templates
+
 	Jive_Result.prototype.parseURL = function(url, cb) {
+		if(cache[url]) {
+			return cb.call(this, Jive.template(cache[url], this));
+		}
+
 		// create a clone of the object, as this result object will probably
 		// change if it's being used for multiple renders within one action
 		var a = [cb, $.extend(true, {}, this)];
@@ -70,6 +76,7 @@
 		} else {
 			queue[url] = [a];
 			jQuery.get(url, function(str){
+				cache[url] = str;
 				jQuery.each(queue[url], function(){
 					this[0].call(this[1], Jive.template(str, this[1]));
 				});
