@@ -149,8 +149,8 @@
 		}
 		Jive.debug("[run] url:"+url+" qs:"+qs+" c:"+controller+" a:"+action);
 		if(hist) {
-			Jive.debug("[run] adding history breadcrumb");
-			Jive.history.add(controller, action, req, href);
+			Jive.debug("[run] adding history breadcrumb: "+href);
+			Jive.history.add(controller, action, req, {href:href});
 		}
 		var ret = Jive.exec(controller, action, req, $trigger);
 		Jive.runHooks(controller, action, Jive.hooks.after);
@@ -205,7 +205,7 @@
 		 */
 		this.echo = function(req, res) {
 			if(!this.content) {
-				this.content = req.content;
+				this.content = req.content ? req.content : $('body').html();
 			}
 			res.renderText(this.content);
 		}

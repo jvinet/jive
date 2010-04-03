@@ -8,7 +8,7 @@
 
 	Jive.listen = function(evt_name, cb, permanent) {
 		// listeners are permanent by default
-		var p = typeof permanent == 'undefined' ? true : false;
+		var p = typeof permanent == 'undefined' ? true : permanent;
 		Jive.listeners[evt_name] = Jive.listeners[evt_name] || [];
 		Jive.listeners[evt_name].push([cb, p]);
 	};

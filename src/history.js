@@ -40,14 +40,30 @@
 			}
 		},
 
-		add: function(c, a, req, href) {
+		/**
+		 * Attach or retrieve state variables to/from this history point.
+		 * - If an object literal is passed, it will be merged with any existing
+		 *   state variables.
+		 * - If no object is passed, all state variables are returned.
+		 * - If we are not in a stateful history point, false is returned.
+		 */
+		state: function(o) {
+			var o = o || {};
+			return Jive.history.current >= 0
+				? jQuery.extend(Jive.history.history[Jive.history.current].state, o)
+				: false;
+		},
+
+		add: function(c, a, req, state) {
 			Jive.history.ignore = true;
-			Jive.history.history[++Jive.history.current] = {controller:c, action:a, req:req};
+			Jive.history.history[++Jive.history.current] = {controller:c, action:a, req:req, state:{}};
+			Jive.history.state(state);
 			Jive.debug("[history] New history index: "+Jive.history.current);
-			Jive.history.setloc(href);
+			Jive.history.setloc();
 		},
 
 		setloc: function(href) {
+			var state  = state || {};
 			var href   = href || window.location.href;
 			var base   = href.indexOf('#') > -1 ? href.substring(0, href.indexOf('#')) : href;
 			var anchor = href.indexOf('#') > -1 ? href.substring(href.indexOf('#')+1) : '';
@@ -61,6 +77,7 @@
 
 		watch: function() {
 			if(Jive.history.lasthref != window.location.href) {
+				Jive.trigger('locationChange', {href: window.location.href});
 				Jive.history.lasthref = window.location.href;
 				if(Jive.history.ignore) {
 					//Jive.debug("[history] Ignoring location change: "+window.location.href);
