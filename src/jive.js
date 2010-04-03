@@ -70,10 +70,10 @@
 		if(typeof c[action] != 'function') {
 			// this is our "404"
 			Jive.debug("[exec] 404! c="+controller+" a="+action);
-			return;
+			return false;
 		}
 		Jive.debug("[exec] c="+controller+" a="+action);
-		c[action].call(c, req, res, $trig);
+		return c[action].call(c, req, res, $trig);
 	};
 
 	/**
@@ -152,12 +152,12 @@
 			Jive.debug("[run] adding history breadcrumb");
 			Jive.history.add(controller, action, req, href);
 		}
-		Jive.exec(controller, action, req, $trigger);
+		var ret = Jive.exec(controller, action, req, $trigger);
 		Jive.runHooks(controller, action, Jive.hooks.after);
 		// if this is a history-tracked state change, then we return false to
 		// override the default action, which may try to change the href itself;
 		// we also don't change the href if the trigger simply used href="#"
-		return hist || href == '#' ? false : true;
+		return hist || href == '#' ? false : ret;
 	};
 
 	/************************************************************************
