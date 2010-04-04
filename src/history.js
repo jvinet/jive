@@ -29,6 +29,9 @@
 		// location.href change, since we're setting it ourselves
 		ignore: false,
 
+		/**
+		 * Move to another location in the history stack.
+		 */
 		go: function(idx) {
 			// if negative, then the index must be relative
 			var idx = idx < 0 ? Jive.history.current + idx : idx;
@@ -54,27 +57,32 @@
 				: false;
 		},
 
-		add: function(c, a, req, state) {
+		/**
+		 * Add a new history point to the stack.
+		 */
+		add: function(c, a, req, anchor) {
 			Jive.history.ignore = true;
 			Jive.history.history[++Jive.history.current] = {controller:c, action:a, req:req, state:{}};
-			Jive.history.state(state);
-			Jive.debug("[history] New history index: "+Jive.history.current);
-			Jive.history.setloc();
+			Jive.debug("[history] New history index: "+Jive.history.current+"; anchor: "+anchor);
+			Jive.history.setloc(anchor);
 		},
 
-		setloc: function(href) {
-			var state  = state || {};
-			var href   = href || window.location.href;
-			var base   = href.indexOf('#') > -1 ? href.substring(0, href.indexOf('#')) : href;
-			var anchor = href.indexOf('#') > -1 ? href.substring(href.indexOf('#')+1) : '';
-			// trim out the current history marker, if it exists
-			anchor = anchor.replace(/^[0-9]+\|/, '');
+		/**
+		 * Update the location.href with our special history anchor.
+		 */
+		setloc: function(anchor) {
+			var href = window.location.href;
+			var base = href.indexOf('#') > -1 ? href.substring(0, href.indexOf('#')) : href;
 			// assemble the new href
 			var newhref = base + '#' + Jive.history.current + '|' + anchor;
 			Jive.debug("[history] Setting new href: "+newhref);
 			window.location.href = newhref;
 		},
 
+		/**
+		 * Watch location.href for changes. This function is called regularly
+		 * from a timer.
+		 */
 		watch: function() {
 			if(Jive.history.lasthref != window.location.href) {
 				Jive.trigger('locationChange', {href: window.location.href});

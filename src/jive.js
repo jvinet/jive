@@ -25,7 +25,7 @@
 	Jive.webroot = '';         // SETME: top-level directory of your application
 	Jive.controller = '';      // SETME: default/current controller to use if none specified
 
-	Jive.version = '0.4';
+	Jive.version = '0.4.1';
 	Jive.ctrl = {};           // a map of all active controller objects
 
 	Jive.DEBUG = false;
@@ -110,14 +110,29 @@
 		var qs = url || '', req = req || {}, hist = false;
 		var $trigger = $trigger || undefined;
 		var href = $trigger ? $trigger.attr('href') : '';
+
+		// If no URL was passed, use the anchor portion of location.href (if it's there)
 		if(!qs) {
-			// no url passed; use the anchor portion of location.href if it's there
 			var loc = window.location.href;
 			// always add history breadcrumb if we're dispatching off of location.href
 			hist = true;
-			qs = loc.indexOf('#') > -1 ? loc.substring(loc.indexOf('#') + 1) : '';
+			// leave the # symbol in the string for now
+			qs = href = loc.indexOf('#') > -1 ? loc.substring(loc.indexOf('#')) : '';
 		}
-		// trim off everything up to the '#' if it exists (TODO: necessary?)
+
+		// Trim off the anchor portion, and figure out what we want to be displayed
+		// in the history breadcrumb.  We use the following rules:
+		//   1. If no # symbol present, use the "url" passed to Jive.run()
+		//   2. If the # symbol is present, but nothing following it, then use nothing
+		//   3. If we have text following the # symbol, then use that
+		var anchor = qs;
+		if(href) {
+			if(href.indexOf('#') > -1) {
+				anchor = href.substring(href.indexOf('#') + 1);
+			}
+		}
+
+		// trim off everything up to (and including) the '#' if it still exists
 		qs = qs.indexOf('#') > -1 ? qs.substring(qs.indexOf('#')+1) : qs;
 		// if the first character is a '@' then we should add a history breadcrumb
 		if(qs.charAt(0) == '@') {
@@ -128,6 +143,11 @@
 		// trim off the history identifier if it's present
 		var m = /^[0-9]+\|/.exec(qs);
 		if(m) qs = qs.substring(m[0].length);
+
+		// do the same for anchor (TODO: can these be merged?)
+		anchor = anchor.charAt(0) == '@' ? anchor.substring(1) : anchor;
+		var m = /^[0-9]*\|/.exec(anchor);
+		if(m) anchor = anchor.substring(m[0].length);
 
 		// everything before the '?' is the controller/action designation
 		// everything after the '?' is query-string tuples
@@ -149,8 +169,8 @@
 		}
 		Jive.debug("[run] url:"+url+" qs:"+qs+" c:"+controller+" a:"+action);
 		if(hist) {
-			Jive.debug("[run] adding history breadcrumb: "+href);
-			Jive.history.add(controller, action, req, {href:href});
+			Jive.debug("[run] adding history breadcrumb: "+anchor);
+			Jive.history.add(controller, action, req, anchor);
 		}
 		var ret = Jive.exec(controller, action, req, $trigger);
 		Jive.runHooks(controller, action, Jive.hooks.after);
