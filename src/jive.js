@@ -25,7 +25,7 @@
 	Jive.webroot = '';         // SETME: top-level directory of your application
 	Jive.controller = '';      // SETME: default/current controller to use if none specified
 
-	Jive.version = '0.4.1';
+	Jive.version = '0.4.3';
 	Jive.ctrl = {};           // a map of all active controller objects
 
 	Jive.DEBUG = false;
@@ -180,6 +180,16 @@
 		return hist || href == '#' ? false : ret;
 	};
 
+	/**
+	 * Convert form data into a key/value object
+	 */
+	Jive.form = function($form) {
+		var data = {};
+		var fd = $form.serializeArray();
+		for(var i = 0; i < fd.length; i++) data[fd[i].name] = fd[i].value;
+		return data;
+	};
+
 	/************************************************************************
 	 * OVERRIDE DEFAULT LINK/FORM BEHAVIOR
 	 *   We operate on the "run" attribute (not W3C-compliant) which is
@@ -187,20 +197,24 @@
 	 ************************************************************************/
 	jQuery(function(){
 		var $ = jQuery;
-		var run = function(){ $(this).blur(); return Jive.run($(this).attr('run'), {}, $(this)) };
-		$('a[run]').live('click', function(){ return run.call(this) });
+		var run = function(e){
+			var $e = $(this);
+			$e.blur();
+			$e['event'] = e;
+			return Jive.run($(this).attr('run'), {}, $e);
+		};
+		// use a 'return' so the default event doesn't fire
+		$('a[run]').live('click', function(e){ return run.call(this, e) });
 		// for some reason, live() doesn't work on this selector but livequery() does...
 		$('input:not(:checked)[run][type=radio]').livequery('click', run);
 		$('input[run][type=checkbox]').live('click', run);
 		$('button[run]').live('click', run);
 		$('input[run][type=button]').live('click', run);
 		$('input[run][type=submit]').live('click', run);
-		$('form[run]').live('submit', function(){
-			// convert form data into an object
-			var data = {};
-			var fd = $(this).serializeArray();
-			for(var i = 0; i < fd.length; i++) data[fd[i].name] = fd[i].value;
-			Jive.run($(this).attr('run'), data, $(this));
+		$('form[run]').live('submit', function(e){
+			var $e = $(this);
+			$e['event'] = e;
+			Jive.run($(this).attr('run'), Jive.form($e), $e);
 			return false;
 		});
 	});

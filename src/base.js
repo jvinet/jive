@@ -22,9 +22,10 @@
 		 * Find all form fields in the $cnt element and validate them
 		 * based on the content of the 'valid' attribute.
 		 */
-		this.validate = function($cnt) {
-			var errs = false;
-			var msg  = false;
+		this.validate = function($cnt, show_msg) {
+			var errs     = false;
+			var msg      = false;
+			var show_msg = show_msg || false;
 
 			$('*', $cnt).removeClass('field-error');
 			$('input[type=checkbox][valid=req], input[type=radio][valid=req]', $cnt).each(function(){
@@ -52,6 +53,7 @@
 						case 'ne':
 						case 'req':   valid = !!val.length; break;
 						case 'int':   valid = /^[0-9]+$/.test(val); break;
+						case 'float': valid = /^[0-9]*\.?[0-9]+$/.test(val); break;
 						case 'email': valid = /^([a-zA-Z0-9_.\+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val); break;
 						default:
 							Jive.debug("Unsupported validation type: "+v);
@@ -64,7 +66,7 @@
 					errs = true;
 				}
 			});
-			if(errs) {
+			if(errs && (show_msg || msg)) {
 				alert(msg ? msg : "One or more fields are missing or incorrect. Please fix the highlighted fields.");
 			}
 			return !errs;
