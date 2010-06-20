@@ -204,14 +204,15 @@
 			return Jive.run($(this).attr('run'), {}, $e);
 		};
 		// use a 'return' so the default event doesn't fire
-		$('a[run]').live('click', function(e){ return run.call(this, e) });
+		$('a[run]').livequery('click', function(e){ return run.call(this, e) });
 		// for some reason, live() doesn't work on this selector but livequery() does...
 		$('input:not(:checked)[run][type=radio]').livequery('click', run);
 		$('input[run][type=checkbox]').live('click', run);
-		$('button[run]').live('click', run);
+		$('button[run]').livequery('click', run);
 		$('input[run][type=button]').live('click', run);
 		$('input[run][type=submit]').live('click', run);
-		$('form[run]').live('submit', function(e){
+		// live() doesn't work on this (in IE) selector but livequery() does...
+		$('form[run]').livequery('submit', function(e){
 			var $e = $(this);
 			$e['event'] = e;
 			Jive.run($(this).attr('run'), Jive.form($e), $e);
