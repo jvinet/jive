@@ -25,7 +25,7 @@
 	Jive.webroot = '';         // SETME: top-level directory of your application
 	Jive.controller = '';      // SETME: default/current controller to use if none specified
 
-	Jive.version = '0.4.3';
+	Jive.version = '0.4.4';
 	Jive.ctrl = {};           // a map of all active controller objects
 
 	Jive.DEBUG = false;
@@ -181,7 +181,7 @@
 	};
 
 	/**
-	 * Convert form data into a key/value object
+	 * Convert form data into a key/value object literal
 	 */
 	Jive.form = function($form) {
 		var data = {};
@@ -201,17 +201,18 @@
 			var $e = $(this);
 			$e.blur();
 			$e['event'] = e;
-			return Jive.run($(this).attr('run'), {}, $e);
+			Jive.run($(this).attr('run'), {}, $e);
+			// return false so the default event doesn't fire
+			return false;
 		};
-		// use a 'return' so the default event doesn't fire
-		$('a[run]').livequery('click', function(e){ return run.call(this, e) });
+		$('a[run]').live('click', run);
 		// for some reason, live() doesn't work on this selector but livequery() does...
 		$('input:not(:checked)[run][type=radio]').livequery('click', run);
 		$('input[run][type=checkbox]').live('click', run);
-		$('button[run]').livequery('click', run);
+		$('button[run]').live('click', run);
 		$('input[run][type=button]').live('click', run);
 		$('input[run][type=submit]').live('click', run);
-		// live() doesn't work on this (in IE) selector but livequery() does...
+		// live() doesn't work on this (in IE) event but livequery() does...
 		$('form[run]').livequery('submit', function(e){
 			var $e = $(this);
 			$e['event'] = e;
