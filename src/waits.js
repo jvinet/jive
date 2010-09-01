@@ -7,6 +7,9 @@
  * to be fired once the wait has been removed.
  *
  * A process can also delay execution until all wait keys are gone.
+ *
+ * NOTE: Waits are no longer included in a default Jive build. They've
+ *       been deprecated in favour of Events (simpler, more versatile).
  ************************************************************************/
 
 (function(){
