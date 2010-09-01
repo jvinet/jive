@@ -17,7 +17,7 @@
 
 (function(){
 	Jive.history = {
-		// Array of {controller, action, request_object}
+		// Array of {controller, action, request_object, state}
 		history: [],
 
 		// current index into history buffer

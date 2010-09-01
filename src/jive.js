@@ -1,10 +1,8 @@
 /**
  * Jive: A JavaScript client-side MVC Framework.
  *
- * This is in a very-alpha stage and is riddled with bugs.  It is also
- * falsely-advertised, as there is no M in this MVC.  Eventually, it will
- * have a very thin M layer that basically talks to APIs to push/pull
- * data.
+ * Jive is beta software. It's in use in some production environments,
+ * but it is not battle-tested.  Use Jive at your own risk.
  *
  * @version 0.4
  * @author Judd Vinet <jvinet@zeroflux.org>
