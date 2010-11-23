@@ -91,6 +91,8 @@ Here are some Javascript frameworks that are much more featureful and mature.
 - http://code.google.com/p/trimpath/wiki/TrimJunction
 - http://www.sproutcore.com
 - http://jamal-mvc.com
+- http://code.quirkey.com/sammy/
+- http://documentcloud.github.com/backbone/
 
 
 # Doc TODO #

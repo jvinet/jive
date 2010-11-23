@@ -25,8 +25,15 @@
 		document.cookie = ck;
 	}
 
-	Function.prototype.mixin = function(p) {
-		jQuery.extend(this.prototype, p.prototype);
+	Function.prototype.extend = function(p) {
+		// handle constructor functions or objects
+		if(typeof p == "object") {
+			jQuery.extend(this.prototype, p);
+		} else {
+			jQuery.extend(this.prototype, new p);
+		}
 		return this;
 	}
+	// backwards compat
+	Function.prototype.mixin = Function.prototype.extend;
 })();

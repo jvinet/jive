@@ -71,12 +71,10 @@
 		 * Update the location.href with our special history anchor.
 		 */
 		setloc: function(anchor) {
-			var href = window.location.href;
-			var base = href.indexOf('#') > -1 ? href.substring(0, href.indexOf('#')) : href;
 			// assemble the new href
-			var newhref = base + '#' + Jive.history.current + '|' + anchor;
-			Jive.debug("[history] Setting new href: "+newhref);
-			window.location.href = newhref;
+			var hash = Jive.history.current + '|' + anchor;
+			Jive.debug("[history] Setting new hash: "+hash);
+			window.location.hash = hash;
 		},
 
 		/**
@@ -93,10 +91,8 @@
 					return;
 				}
 				Jive.debug("[history] Location changed: "+window.location.href);
-				// look for the history index in the href anchor
-				var href   = window.location.href;
-				var anchor = href.indexOf('#') > -1 ? href.substring(href.indexOf('#')+1) : '';
-				var m = /^([0-9]+)|/.exec(anchor);
+				// look for the history index in the hash
+				var m = /^([0-9]+)|/.exec(window.location.hash);
 				if(m[1]) Jive.history.go(m[1]);
 			}
 		}
