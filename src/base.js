@@ -77,8 +77,6 @@
 		var self = this;
 
 		this.state = {};   // any internal state data you may need to store
-
-		console.log("state: "); console.log(this.state);
 	};
 
 })();
