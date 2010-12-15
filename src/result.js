@@ -48,10 +48,14 @@
 	 * @param string mode jQuery function to use to add the content to the
 	 *                    element.  eg, append, prepend, replaceWith, etc.
 	 *                    Default is replace, which calls html().
+	 * @param function cb Callback after content is rendered.
 	 */
-	Jive_Result.prototype.renderURL = function(url, el, mode) {
+	Jive_Result.prototype.renderURL = function(url, el, mode, cb) {
 		//Jive.wait('template');
-		this.parseURL(url, function(str){ this.render(str, el, mode) });
+		this.parseURL(url, function(str){
+			this.render(str, el, mode);
+			if(cb) cb.call(this);
+		});
 	};
 
 	/**

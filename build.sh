@@ -1,6 +1,7 @@
 #!/bin/bash
 
-files=(jive.js hooks.js events.js history.js store.js template.js result.js \
+files=(jive.js hooks.js events.js history.js store.js registry.js \
+       template.js result.js \
        base.js ui.js helpers.js util.js \
        lib/json2.js lib/sha1.js lib/jquery.livequery.js)
 
