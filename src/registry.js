@@ -19,30 +19,33 @@
 
 		store: Jive.store() || {},
 
+		// use a prefix in DOM store keys to try and avoid clobbering
+		// any other data there (use a function so we can late-bind Jive.appname)
+		prefix: function() {
+			return Jive.appname + ':reg:';
+		},
+
 		get: function(key) {
 			if(typeof this.data[key] !== 'undefined') return this.data[key];
 
 			// look in storage
-			if(!this.store._registry) this.store._registry = {};
-			if(typeof this.store._registry[key] !== 'undefined') {
+			if(typeof this.store[this.prefix() + key] !== 'undefined') {
 				// DOM storage can only support scalar types, so we use JSON
-				this.data[key] = JSON.parse(this.store._registry[key]);
+				this.data[key] = JSON.parse(this.store[this.prefix() + key]);
 				return this.data[key];
 			}
 			return null;
 		},
 
 		set: function(key, val) {
-			if(!this.store._registry) this.store._registry = {};
 			this.data[key] = val;
-			this.store._registry[key] = JSON.stringify(val);
+			this.store[this.prefix() + key] = JSON.stringify(val);
 			return val;
 		},
 
 		remove: function(key) {
-			if(!this.store._registry) this.store._registry = {};
 			delete this.data[key];
-			delete this.store._registry[key];
+			delete this.store[this.prefix() + key];
 		}
 	};
 

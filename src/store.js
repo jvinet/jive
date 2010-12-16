@@ -11,7 +11,7 @@
 	Jive.store = function() {
 		if(typeof window.localStorage != 'object') return false;
 		var s = window.localStorage;
-		s[Jive.appname || 'Jive'] = s[Jive.appname || 'Jive'] || {};
+		s[Jive.appname] = s[Jive.appname] || {};
 		return s;
 	};
 
